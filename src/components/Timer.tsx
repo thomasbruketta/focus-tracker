@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { useApp } from "../context/AppContext";
-import { formatDuration, generateId } from "../utils/storage";
-import type { FocusSession } from "../types";
+import { useEffect, useState } from 'react';
+import { useApp } from '../context/AppContext';
+import { formatDuration, generateId } from '../utils/storage';
+import type { FocusSession } from '../types';
 
 export function Timer() {
   const {
@@ -15,7 +15,7 @@ export function Timer() {
   const [currentTime, setCurrentTime] = useState(0);
 
   useEffect(() => {
-    let interval: number;
+    let interval: NodeJS.Timeout;
 
     if (state.timerState.isRunning && state.timerState.startTime) {
       interval = setInterval(() => {
@@ -38,7 +38,7 @@ export function Timer() {
   ]);
 
   const handleStart = () => {
-    startTimer("manual");
+    startTimer('manual');
   };
 
   const handlePause = () => {
@@ -55,12 +55,12 @@ export function Timer() {
         id: state.timerState.currentSession.id || generateId(),
         date:
           state.timerState.currentSession.date ||
-          new Date().toISOString().split("T")[0],
+          new Date().toISOString().split('T')[0],
         start:
           state.timerState.currentSession.start || new Date().toISOString(),
         end: new Date().toISOString(),
         duration: currentTime,
-        type: "manual",
+        type: 'manual',
       };
       completeSession(session);
     } else {
@@ -125,10 +125,10 @@ export function Timer() {
         {(isRunning || isPaused) && (
           <div className="mt-6 p-3 bg-neutral-50 dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700">
             <p className="text-sm text-neutral-600 dark:text-neutral-400">
-              Session started at{" "}
+              Session started at{' '}
               <span className="font-medium text-neutral-900 dark:text-neutral-100">
                 {new Date(
-                  state.timerState.currentSession?.start || "",
+                  state.timerState.currentSession?.start || ''
                 ).toLocaleTimeString()}
               </span>
             </p>

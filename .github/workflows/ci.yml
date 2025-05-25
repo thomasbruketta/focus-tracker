@@ -22,7 +22,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "npm"
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -35,6 +35,9 @@ jobs:
 
       - name: Build application
         run: npm run build
+
+      - name: Bundle-size guard
+        run: node scripts/bundle-size-check.js
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4

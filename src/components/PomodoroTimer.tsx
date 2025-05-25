@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { useApp } from "../context/AppContext";
-import { formatDuration, generateId } from "../utils/storage";
-import type { FocusSession } from "../types";
+import { useEffect, useState } from 'react';
+import { useApp } from '../context/AppContext';
+import { formatDuration, generateId } from '../utils/storage';
+import type { FocusSession } from '../types';
 
 export function PomodoroTimer() {
   const {
@@ -22,11 +22,11 @@ export function PomodoroTimer() {
   // Calculate phase duration in milliseconds
   const getPhaseDuration = () => {
     switch (currentPomodoroPhase) {
-      case "focus":
+      case 'focus':
         return pomodoroSettings.focusDuration * 60 * 1000;
-      case "short-break":
+      case 'short-break':
         return pomodoroSettings.shortBreakDuration * 60 * 1000;
-      case "long-break":
+      case 'long-break':
         return pomodoroSettings.longBreakDuration * 60 * 1000;
       default:
         return pomodoroSettings.focusDuration * 60 * 1000;
@@ -34,7 +34,7 @@ export function PomodoroTimer() {
   };
 
   useEffect(() => {
-    let interval: number;
+    let interval: NodeJS.Timeout;
 
     if (state.timerState.isRunning && state.timerState.startTime) {
       interval = setInterval(() => {
@@ -54,7 +54,7 @@ export function PomodoroTimer() {
       setCurrentTime(state.timerState.pausedTime);
       const phaseDuration = getPhaseDuration();
       setPhaseTimeRemaining(
-        Math.max(0, phaseDuration - state.timerState.pausedTime),
+        Math.max(0, phaseDuration - state.timerState.pausedTime)
       );
     } else {
       setCurrentTime(0);
@@ -75,16 +75,16 @@ export function PomodoroTimer() {
 
   const handlePhaseComplete = () => {
     // Show notification
-    if ("Notification" in window && Notification.permission === "granted") {
+    if ('Notification' in window && Notification.permission === 'granted') {
       const message =
-        currentPomodoroPhase === "focus"
-          ? "Focus session complete! Time for a break."
-          : "Break time over! Ready to focus?";
-      new Notification("FocusTracker", { body: message });
+        currentPomodoroPhase === 'focus'
+          ? 'Focus session complete! Time for a break.'
+          : 'Break time over! Ready to focus?';
+      new Notification('FocusTracker', { body: message });
     }
 
     // Save session if it was a focus phase
-    if (currentPomodoroPhase === "focus" && state.timerState.currentSession) {
+    if (currentPomodoroPhase === 'focus' && state.timerState.currentSession) {
       const shouldTakeLongBreak =
         (pomodoroSessionCount + 1) % pomodoroSettings.sessionsUntilLongBreak ===
         0;
@@ -92,38 +92,38 @@ export function PomodoroTimer() {
         id: state.timerState.currentSession.id || generateId(),
         date:
           state.timerState.currentSession.date ||
-          new Date().toISOString().split("T")[0],
+          new Date().toISOString().split('T')[0],
         start:
           state.timerState.currentSession.start || new Date().toISOString(),
         end: new Date().toISOString(),
         duration: currentTime,
-        type: "pomodoro",
+        type: 'pomodoro',
         focusDuration: pomodoroSettings.focusDuration,
         breakDuration: shouldTakeLongBreak
           ? pomodoroSettings.longBreakDuration
           : pomodoroSettings.shortBreakDuration,
       };
       completeSession(session);
-      dispatch({ type: "INCREMENT_POMODORO_COUNT" });
+      dispatch({ type: 'INCREMENT_POMODORO_COUNT' });
     }
 
     // Determine next phase
-    let nextPhase: "focus" | "short-break" | "long-break";
-    if (currentPomodoroPhase === "focus") {
+    let nextPhase: 'focus' | 'short-break' | 'long-break';
+    if (currentPomodoroPhase === 'focus') {
       const shouldTakeLongBreak =
         (pomodoroSessionCount + 1) % pomodoroSettings.sessionsUntilLongBreak ===
         0;
-      nextPhase = shouldTakeLongBreak ? "long-break" : "short-break";
+      nextPhase = shouldTakeLongBreak ? 'long-break' : 'short-break';
     } else {
-      nextPhase = "focus";
+      nextPhase = 'focus';
     }
 
-    dispatch({ type: "SET_POMODORO_PHASE", phase: nextPhase });
+    dispatch({ type: 'SET_POMODORO_PHASE', phase: nextPhase });
 
     // Auto-start next phase if enabled
     if (pomodoroSettings.autoStartNext) {
       setTimeout(() => {
-        startTimer("pomodoro");
+        startTimer('pomodoro');
       }, 1000);
     } else {
       stopTimer();
@@ -132,10 +132,10 @@ export function PomodoroTimer() {
 
   const handleStart = () => {
     // Request notification permission
-    if ("Notification" in window && Notification.permission === "default") {
+    if ('Notification' in window && Notification.permission === 'default') {
       Notification.requestPermission();
     }
-    startTimer("pomodoro");
+    startTimer('pomodoro');
   };
 
   const handlePause = () => {
@@ -155,27 +155,27 @@ export function PomodoroTimer() {
 
   const getPhaseLabel = () => {
     switch (currentPomodoroPhase) {
-      case "focus":
-        return "Focus Time";
-      case "short-break":
-        return "Short Break";
-      case "long-break":
-        return "Long Break";
+      case 'focus':
+        return 'Focus Time';
+      case 'short-break':
+        return 'Short Break';
+      case 'long-break':
+        return 'Long Break';
       default:
-        return "Focus Time";
+        return 'Focus Time';
     }
   };
 
   const getPhaseColor = () => {
     switch (currentPomodoroPhase) {
-      case "focus":
-        return "text-error-600 dark:text-error-400";
-      case "short-break":
-        return "text-success-600 dark:text-success-400";
-      case "long-break":
-        return "text-primary-600 dark:text-primary-400";
+      case 'focus':
+        return 'text-error-600 dark:text-error-400';
+      case 'short-break':
+        return 'text-success-600 dark:text-success-400';
+      case 'long-break':
+        return 'text-primary-600 dark:text-primary-400';
       default:
-        return "text-error-600 dark:text-error-400";
+        return 'text-error-600 dark:text-error-400';
     }
   };
 
@@ -240,20 +240,20 @@ export function PomodoroTimer() {
             <p>
               <span className="font-medium text-neutral-900 dark:text-neutral-100">
                 Session:
-              </span>{" "}
+              </span>{' '}
               {pomodoroSessionCount + 1}
             </p>
             <p>
               <span className="font-medium text-neutral-900 dark:text-neutral-100">
                 Next:
-              </span>{" "}
+              </span>{' '}
               {pomodoroSessionCount %
                 pomodoroSettings.sessionsUntilLongBreak ===
               pomodoroSettings.sessionsUntilLongBreak - 1
-                ? "Long Break"
-                : currentPomodoroPhase === "focus"
-                  ? "Short Break"
-                  : "Focus"}
+                ? 'Long Break'
+                : currentPomodoroPhase === 'focus'
+                  ? 'Short Break'
+                  : 'Focus'}
             </p>
           </div>
         </div>

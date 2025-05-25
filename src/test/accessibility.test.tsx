@@ -1,13 +1,11 @@
-import { render } from "@testing-library/react";
-import { axe, toHaveNoViolations } from "jest-axe";
-import { AppProvider } from "../context/AppContext";
-import { ThemeProvider } from "../context/ThemeContext";
-import { Timer } from "../components/Timer";
-import { PomodoroTimer } from "../components/PomodoroTimer";
-import { Analytics } from "../components/Analytics";
-import { Settings } from "../components/Settings";
-
-expect.extend(toHaveNoViolations);
+import { render } from '@testing-library/react';
+import { axe } from 'jest-axe';
+import { AppProvider } from '../context/AppContext';
+import { ThemeProvider } from '../context/ThemeContext';
+import { Timer } from '../components/Timer';
+import { PomodoroTimer } from '../components/PomodoroTimer';
+import { Analytics } from '../components/Analytics';
+import { Settings } from '../components/Settings';
 
 const TestWrapper = ({ children }: { children: React.ReactNode }) => (
   <ThemeProvider>
@@ -15,76 +13,76 @@ const TestWrapper = ({ children }: { children: React.ReactNode }) => (
   </ThemeProvider>
 );
 
-describe("Accessibility Tests", () => {
-  it("Timer component should not have accessibility violations", async () => {
+describe('Accessibility Tests', () => {
+  it('Timer component should not have accessibility violations', async () => {
     const { container } = render(
       <TestWrapper>
         <Timer />
-      </TestWrapper>,
+      </TestWrapper>
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
 
-  it("PomodoroTimer component should not have accessibility violations", async () => {
+  it('PomodoroTimer component should not have accessibility violations', async () => {
     const { container } = render(
       <TestWrapper>
         <PomodoroTimer />
-      </TestWrapper>,
+      </TestWrapper>
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
 
-  it("Analytics component should not have accessibility violations", async () => {
+  it('Analytics component should not have accessibility violations', async () => {
     const { container } = render(
       <TestWrapper>
         <Analytics />
-      </TestWrapper>,
+      </TestWrapper>
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
 
-  it("Settings component should not have accessibility violations", async () => {
+  it('Settings component should not have accessibility violations', async () => {
     const { container } = render(
       <TestWrapper>
         <Settings />
-      </TestWrapper>,
+      </TestWrapper>
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
 
-  it("Timer component in dark mode should not have accessibility violations", async () => {
+  it('Timer component in dark mode should not have accessibility violations', async () => {
     // Set dark mode
-    document.documentElement.classList.add("dark");
+    document.documentElement.classList.add('dark');
 
     const { container } = render(
       <TestWrapper>
         <Timer />
-      </TestWrapper>,
+      </TestWrapper>
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
 
     // Clean up
-    document.documentElement.classList.remove("dark");
+    document.documentElement.classList.remove('dark');
   });
 
-  it("Settings component in dark mode should not have accessibility violations", async () => {
+  it('Settings component in dark mode should not have accessibility violations', async () => {
     // Set dark mode
-    document.documentElement.classList.add("dark");
+    document.documentElement.classList.add('dark');
 
     const { container } = render(
       <TestWrapper>
         <Settings />
-      </TestWrapper>,
+      </TestWrapper>
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
 
     // Clean up
-    document.documentElement.classList.remove("dark");
+    document.documentElement.classList.remove('dark');
   });
 });
