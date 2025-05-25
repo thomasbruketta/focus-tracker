@@ -5,7 +5,6 @@ import { Timer } from './components/Timer';
 import { PomodoroTimer } from './components/PomodoroTimer';
 import { Analytics } from './components/Analytics';
 import { Settings } from './components/Settings';
-import { ThemeDebug } from './components/ThemeDebug';
 
 type Tab = 'timer' | 'pomodoro' | 'analytics' | 'settings';
 
@@ -94,9 +93,6 @@ function App() {
               </div>
             </div>
           </footer>
-
-          {/* Debug component - temporary */}
-          <ThemeDebug />
         </div>
       </AppProvider>
     </ThemeProvider>
