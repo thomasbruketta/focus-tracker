@@ -72,13 +72,13 @@ export function Timer() {
   const isPaused = state.timerState.isPaused;
 
   return (
-    <div className="card max-w-md mx-auto">
+    <div className="card max-w-md mx-auto animate-slide-up">
       <div className="text-center">
-        <h2 className="text-2xl font-bold mb-6">Manual Timer</h2>
+        <h2 className="text-2xl font-bold mb-6 text-neutral-900 dark:text-neutral-50">
+          Manual Timer
+        </h2>
 
-        <div className="text-6xl font-mono font-bold mb-8 text-blue-600">
-          {formatDuration(currentTime)}
-        </div>
+        <div className="timer-display mb-8">{formatDuration(currentTime)}</div>
 
         <div className="flex gap-3 justify-center">
           {!isRunning && !isPaused && (
@@ -123,12 +123,16 @@ export function Timer() {
         </div>
 
         {(isRunning || isPaused) && (
-          <p className="mt-4 text-sm text-gray-600">
-            Session started at{" "}
-            {new Date(
-              state.timerState.currentSession?.start || "",
-            ).toLocaleTimeString()}
-          </p>
+          <div className="mt-6 p-3 bg-neutral-50 dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700">
+            <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              Session started at{" "}
+              <span className="font-medium text-neutral-900 dark:text-neutral-100">
+                {new Date(
+                  state.timerState.currentSession?.start || "",
+                ).toLocaleTimeString()}
+              </span>
+            </p>
+          </div>
         )}
       </div>
     </div>

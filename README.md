@@ -27,9 +27,29 @@ A single-user web application for manual time tracking, Pomodoro sessions, and l
 ### ⚙️ Settings & Data Management
 
 - Configurable Pomodoro settings
+- Dark/light/system theme toggle
 - JSON data export for backup
 - JSON data import for migration
 - All data stored locally (no external servers)
+
+### 🎨 Design System
+
+FocusTracker features a comprehensive design system optimized for neurodivergent users:
+
+- **ADHD-Friendly**: Minimalist design reduces cognitive load and distractions
+- **Accessible**: WCAG 2.1 AA compliant with excellent contrast ratios
+- **Dark Mode**: Automatic system preference detection with manual override
+- **Consistent**: Unified color palette, typography, and spacing tokens
+- **Responsive**: Works seamlessly across desktop, tablet, and mobile devices
+
+For detailed design guidelines, see [Brand Guidelines](docs/brand_guidelines.md).
+
+#### Design Tokens
+
+- **Colors**: Primary blue palette with semantic success/warning/error colors
+- **Typography**: Inter for UI text, JetBrains Mono for timer displays
+- **Spacing**: 4px-based scale for consistent rhythm
+- **Components**: Reusable button, card, and input patterns
 
 ## Getting Started
 
@@ -38,7 +58,7 @@ A single-user web application for manual time tracking, Pomodoro sessions, and l
 1. **Manual Timer**: Click "Start" to begin tracking unstructured focus time
 2. **Pomodoro**: Use structured work sessions with automatic break reminders
 3. **Analytics**: View your progress and patterns over the last 7 days
-4. **Settings**: Customize Pomodoro durations and manage your data
+4. **Settings**: Customize Pomodoro durations, theme, and manage your data
 
 ### Data Privacy
 
@@ -64,9 +84,9 @@ A single-user web application for manual time tracking, Pomodoro sessions, and l
 ### Tech Stack
 
 - **Frontend**: React 18 + TypeScript + Vite
-- **Styling**: Tailwind CSS
+- **Styling**: Tailwind CSS with custom design tokens
 - **Charts**: Chart.js + react-chartjs-2
-- **Testing**: Vitest + React Testing Library
+- **Testing**: Vitest + React Testing Library + Axe for accessibility
 - **Code Quality**: ESLint + Prettier + Husky
 
 ### Local Development
@@ -78,7 +98,7 @@ npm install
 # Start development server
 npm run dev
 
-# Run tests
+# Run tests (includes accessibility tests)
 npm test
 
 # Build for production
@@ -92,9 +112,30 @@ npm run preview
 
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
-- `npm run test` - Run tests
+- `npm run test` - Run tests (includes accessibility checks)
 - `npm run lint` - Lint code
 - `npm run format` - Format code with Prettier
+
+### Design System Development
+
+The design system is located in `/design-system/` with the following structure:
+
+```
+design-system/
+├── assets/
+│   ├── icons/          # SVG icons with 1.5px stroke
+│   └── logos/          # Brand logos (placeholder)
+├── tokens/
+│   ├── design-tokens.json    # Complete design token definitions
+│   └── tailwind.config.js    # Tailwind extension configuration
+└── documentation/      # Additional design documentation
+```
+
+To use design tokens in development:
+
+1. Import tokens from `design-system/tokens/design-tokens.json`
+2. Reference the Tailwind configuration in `design-system/tokens/tailwind.config.js`
+3. Follow the brand guidelines in `docs/brand_guidelines.md`
 
 ## Deployment
 
@@ -115,6 +156,18 @@ npm run preview
 - Chrome/Edge 88+
 - Firefox 85+
 - Safari 14+
+
+## Accessibility
+
+FocusTracker is built with accessibility as a core principle:
+
+- **WCAG 2.1 AA Compliant**: All color combinations meet contrast requirements
+- **Keyboard Navigation**: Full keyboard accessibility for all features
+- **Screen Reader Support**: Proper ARIA labels and semantic HTML
+- **Reduced Motion**: Respects user's motion preferences
+- **Focus Management**: Clear focus indicators and logical tab order
+
+Accessibility is tested automatically with axe-core in our test suite.
 
 ## License
 

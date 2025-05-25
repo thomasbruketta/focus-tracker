@@ -169,25 +169,27 @@ export function PomodoroTimer() {
   const getPhaseColor = () => {
     switch (currentPomodoroPhase) {
       case "focus":
-        return "text-red-600";
+        return "text-error-600 dark:text-error-400";
       case "short-break":
-        return "text-green-600";
+        return "text-success-600 dark:text-success-400";
       case "long-break":
-        return "text-blue-600";
+        return "text-primary-600 dark:text-primary-400";
       default:
-        return "text-red-600";
+        return "text-error-600 dark:text-error-400";
     }
   };
 
   return (
-    <div className="card max-w-md mx-auto">
+    <div className="card max-w-md mx-auto animate-slide-up">
       <div className="text-center">
-        <h2 className="text-2xl font-bold mb-2">Pomodoro Timer</h2>
+        <h2 className="text-2xl font-bold mb-2 text-neutral-900 dark:text-neutral-50">
+          Pomodoro Timer
+        </h2>
         <p className={`text-lg font-medium mb-6 ${getPhaseColor()}`}>
           {getPhaseLabel()}
         </p>
 
-        <div className={`text-6xl font-mono font-bold mb-8 ${getPhaseColor()}`}>
+        <div className={`timer-display mb-8 ${getPhaseColor()}`}>
           {formatDuration(phaseTimeRemaining)}
         </div>
 
@@ -233,17 +235,27 @@ export function PomodoroTimer() {
           )}
         </div>
 
-        <div className="mt-6 text-sm text-gray-600">
-          <p>Session {pomodoroSessionCount + 1}</p>
-          <p>
-            Next:{" "}
-            {pomodoroSessionCount % pomodoroSettings.sessionsUntilLongBreak ===
-            pomodoroSettings.sessionsUntilLongBreak - 1
-              ? "Long Break"
-              : currentPomodoroPhase === "focus"
-                ? "Short Break"
-                : "Focus"}
-          </p>
+        <div className="mt-6 p-4 bg-neutral-50 dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700">
+          <div className="text-sm text-neutral-600 dark:text-neutral-400 space-y-1">
+            <p>
+              <span className="font-medium text-neutral-900 dark:text-neutral-100">
+                Session:
+              </span>{" "}
+              {pomodoroSessionCount + 1}
+            </p>
+            <p>
+              <span className="font-medium text-neutral-900 dark:text-neutral-100">
+                Next:
+              </span>{" "}
+              {pomodoroSessionCount %
+                pomodoroSettings.sessionsUntilLongBreak ===
+              pomodoroSettings.sessionsUntilLongBreak - 1
+                ? "Long Break"
+                : currentPomodoroPhase === "focus"
+                  ? "Short Break"
+                  : "Focus"}
+            </p>
+          </div>
         </div>
       </div>
     </div>
