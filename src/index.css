@@ -1,6 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,32 +10,32 @@
   --animation-easing: cubic-bezier(0.4, 0, 0.2, 1);
 
   /* Light theme colors */
-  --color-background: theme("colors.neutral.50");
-  --color-surface: theme("colors.white");
-  --color-surface-elevated: theme("colors.white");
-  --color-border: theme("colors.neutral.200");
-  --color-border-focus: theme("colors.primary.500");
-  --color-text-primary: theme("colors.neutral.900");
-  --color-text-secondary: theme("colors.neutral.600");
-  --color-text-muted: theme("colors.neutral.500");
+  --color-background: theme('colors.neutral.50');
+  --color-surface: theme('colors.white');
+  --color-surface-elevated: theme('colors.white');
+  --color-border: theme('colors.neutral.200');
+  --color-border-focus: theme('colors.primary.500');
+  --color-text-primary: theme('colors.neutral.900');
+  --color-text-secondary: theme('colors.neutral.600');
+  --color-text-muted: theme('colors.neutral.500');
 }
 
 .dark {
   /* Dark theme colors */
-  --color-background: theme("colors.neutral.950");
-  --color-surface: theme("colors.neutral.900");
-  --color-surface-elevated: theme("colors.neutral.800");
-  --color-border: theme("colors.neutral.700");
-  --color-border-focus: theme("colors.primary.400");
-  --color-text-primary: theme("colors.neutral.50");
-  --color-text-secondary: theme("colors.neutral.300");
-  --color-text-muted: theme("colors.neutral.400");
+  --color-background: theme('colors.neutral.950');
+  --color-surface: theme('colors.neutral.900');
+  --color-surface-elevated: theme('colors.neutral.800');
+  --color-border: theme('colors.neutral.700');
+  --color-border-focus: theme('colors.primary.400');
+  --color-text-primary: theme('colors.neutral.50');
+  --color-text-secondary: theme('colors.neutral.300');
+  --color-text-muted: theme('colors.neutral.400');
 }
 
 @layer base {
   html {
-    font-family: "Inter", system-ui, sans-serif;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    font-family: 'Inter', system-ui, sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   }
 
   body {

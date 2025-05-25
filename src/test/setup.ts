@@ -1,5 +1,9 @@
-import "@testing-library/jest-dom";
-import React from "react";
+import '@testing-library/jest-dom';
+import { toHaveNoViolations } from 'jest-axe';
+import React from 'react';
+
+// Extend expect with jest-axe matchers
+expect.extend(toHaveNoViolations);
 
 // Mock localStorage to prevent state persistence between tests
 const localStorageMock = {
@@ -8,37 +12,37 @@ const localStorageMock = {
   removeItem: vi.fn(),
   clear: vi.fn(),
 };
-Object.defineProperty(window, "localStorage", {
+Object.defineProperty(window, 'localStorage', {
   value: localStorageMock,
 });
 
 // Mock react-chartjs-2 to avoid Chart.js DOM issues
-vi.mock("react-chartjs-2", () => ({
+vi.mock('react-chartjs-2', () => ({
   Bar: vi.fn(() => {
     return React.createElement(
-      "div",
-      { "data-testid": "mock-chart", "data-chart-type": "bar" },
-      "Mock Chart",
+      'div',
+      { 'data-testid': 'mock-chart', 'data-chart-type': 'bar' },
+      'Mock Chart'
     );
   }),
   Line: vi.fn(() =>
     React.createElement(
-      "div",
-      { "data-testid": "mock-chart", "data-chart-type": "line" },
-      "Mock Chart",
-    ),
+      'div',
+      { 'data-testid': 'mock-chart', 'data-chart-type': 'line' },
+      'Mock Chart'
+    )
   ),
   Pie: vi.fn(() =>
     React.createElement(
-      "div",
-      { "data-testid": "mock-chart", "data-chart-type": "pie" },
-      "Mock Chart",
-    ),
+      'div',
+      { 'data-testid': 'mock-chart', 'data-chart-type': 'pie' },
+      'Mock Chart'
+    )
   ),
 }));
 
 // Mock Chart.js registration
-vi.mock("chart.js", () => ({
+vi.mock('chart.js', () => ({
   Chart: {
     register: vi.fn(),
   },
@@ -51,7 +55,7 @@ vi.mock("chart.js", () => ({
 }));
 
 // Mock window.matchMedia
-Object.defineProperty(window, "matchMedia", {
+Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: vi.fn().mockImplementation((query) => ({
     matches: false,
@@ -113,18 +117,18 @@ HTMLCanvasElement.prototype.getBoundingClientRect = vi.fn().mockReturnValue({
 });
 
 // Mock canvas width and height properties
-Object.defineProperty(HTMLCanvasElement.prototype, "width", {
+Object.defineProperty(HTMLCanvasElement.prototype, 'width', {
   value: 300,
   writable: true,
 });
 
-Object.defineProperty(HTMLCanvasElement.prototype, "height", {
+Object.defineProperty(HTMLCanvasElement.prototype, 'height', {
   value: 150,
   writable: true,
 });
 
 // Mock ResizeObserver
-Object.defineProperty(window, "ResizeObserver", {
+Object.defineProperty(window, 'ResizeObserver', {
   writable: true,
   value: vi.fn().mockImplementation(() => ({
     observe: vi.fn(),
@@ -134,10 +138,10 @@ Object.defineProperty(window, "ResizeObserver", {
 });
 
 // Mock getComputedStyle for Chart.js
-Object.defineProperty(window, "getComputedStyle", {
+Object.defineProperty(window, 'getComputedStyle', {
   value: vi.fn().mockImplementation(() => ({
-    getPropertyValue: vi.fn().mockReturnValue(""),
-    width: "300px",
-    height: "150px",
+    getPropertyValue: vi.fn().mockReturnValue(''),
+    width: '300px',
+    height: '150px',
   })),
 });
