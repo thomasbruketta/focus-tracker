@@ -1,0 +1,121 @@
+{
+  "project": {
+    "name": "FocusTracker",
+    "description": "Single-user web app for manual time tracking, Pomodoro sessions, and lightweight analytics. All data stored locally with optional JSON export/import."
+  },
+
+  "techStack": {
+    "frontend": "React 18 + Vite + TypeScript",
+    "state": "React Context + localStorage / IndexedDB sync",
+    "styling": "Tailwind CSS (JIT)",
+    "charts": "Chart.js v4 (tree-shaken)",
+    "ciCd": "GitHub Actions → Vercel (auto-deploy on main)",
+    "testing": "Vitest + React Testing Library",
+    "codeQuality": "ESLint, Prettier, Husky pre-commit",
+    "license": "MIT"
+  },
+
+  "successMetric": "App records ≥ 1 focus session or ≥ 30 minutes tracked time on ≥ 5 days per week during the first month after launch.",
+
+  "epics": [
+    {
+      "id": "E-01",
+      "name": "Manual Timer",
+      "userStories": [
+        {
+          "id": "US-01-01",
+          "asA": "user",
+          "iWant": "to start, pause/resume, and stop a timer",
+          "soThat": "I can log unstructured focus time",
+          "acceptanceCriteria": [
+            "Start, Pause/Resume, Stop controls function as described.",
+            "Timer survives page refresh (state persisted).",
+            "Session object {date,start,end,duration,type:\"manual\"} saved on Stop.",
+            "Controls have correct ARIA labels."
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "E-02",
+      "name": "Pomodoro Sessions",
+      "userStories": [
+        {
+          "id": "US-02-01",
+          "asA": "user",
+          "iWant": "configurable Pomodoro cycles",
+          "soThat": "I can work in structured intervals",
+          "acceptanceCriteria": [
+            "Default 25 / 5 / 15 pattern (focus / short-break / long-break).",
+            "Durations editable (1–60 min).",
+            "Desktop notification at phase end.",
+            "Auto-save session {date,focusDuration,breakDuration,type:\"pomodoro\"}.",
+            "Toggle for auto-starting next phase."
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "E-03",
+      "name": "Analytics",
+      "userStories": [
+        {
+          "id": "US-03-01",
+          "asA": "user",
+          "iWant": "a 7-day bar chart of focused minutes",
+          "soThat": "I can see patterns",
+          "acceptanceCriteria": [
+            "Chart updates live.",
+            "Hover tooltip shows exact minutes.",
+            "Consecutive-days streak displayed."
+          ]
+        },
+        {
+          "id": "US-03-02",
+          "asA": "user",
+          "iWant": "to export/import my data as JSON",
+          "soThat": "I can back up or migrate devices",
+          "acceptanceCriteria": [
+            "Export downloads focus_data_YYYYMMDD.json.",
+            "Import validates schema and deduplicates by timestamp hash."
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "E-04",
+      "name": "Automated Setup & Delivery",
+      "userStories": [
+        {
+          "id": "US-04-01",
+          "asA": "non-technical product owner",
+          "iWant": "the system fully deployed without running local commands",
+          "soThat": "I only need to visit a URL and review",
+          "acceptanceCriteria": [
+            "Cursor agent creates repo, pushes code, and configures Vercel.",
+            "CI passes; Vercel deploy URL shared with human in chat.",
+            "README explains app purpose, data policy, and how to export data; no CLI setup steps required for user."
+          ]
+        }
+      ]
+    }
+  ],
+
+  "nonFunctionalRequirements": [
+    "WCAG 2.1 AA contrast; keyboard-only navigation.",
+    "Total production JS ≤ 150 kB gzipped.",
+    "No external tracking scripts or analytics.",
+    "Open-source MIT license."
+  ],
+
+  "definitionOfDone": [
+    "All acceptance criteria met.",
+    "Vitest coverage ≥ 80 % statements.",
+    "GitHub Actions workflow green.",
+    "Main branch push triggers automatic Vercel deployment.",
+    "Human receives live URL and can export a JSON backup without errors."
+  ]
+}
