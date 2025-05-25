@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { formatDuration, generateId } from '../utils/storage';
 import type { FocusSession } from '../types';
+import { ThemeTest } from './ThemeTest';
 
 export function Timer() {
   const {
@@ -72,68 +73,77 @@ export function Timer() {
   const isPaused = state.timerState.isPaused;
 
   return (
-    <div className="card max-w-md mx-auto animate-slide-up">
-      <div className="text-center">
-        <h2 className="text-2xl font-bold mb-6 text-neutral-900 dark:text-neutral-50">
-          Manual Timer
-        </h2>
+    <div className="space-y-6">
+      <div className="card max-w-md mx-auto animate-slide-up">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold mb-6 text-neutral-900 dark:text-neutral-50">
+            Manual Timer
+          </h2>
 
-        <div className="timer-display mb-8">{formatDuration(currentTime)}</div>
+          <div className="timer-display mb-8">
+            {formatDuration(currentTime)}
+          </div>
 
-        <div className="flex gap-3 justify-center">
-          {!isRunning && !isPaused && (
-            <button
-              onClick={handleStart}
-              className="btn-primary"
-              aria-label="Start timer"
-            >
-              Start
-            </button>
-          )}
+          <div className="flex gap-3 justify-center">
+            {!isRunning && !isPaused && (
+              <button
+                onClick={handleStart}
+                className="btn-primary"
+                aria-label="Start timer"
+              >
+                Start
+              </button>
+            )}
 
-          {isRunning && (
-            <button
-              onClick={handlePause}
-              className="btn-secondary"
-              aria-label="Pause timer"
-            >
-              Pause
-            </button>
-          )}
+            {isRunning && (
+              <button
+                onClick={handlePause}
+                className="btn-secondary"
+                aria-label="Pause timer"
+              >
+                Pause
+              </button>
+            )}
 
-          {isPaused && (
-            <button
-              onClick={handleResume}
-              className="btn-primary"
-              aria-label="Resume timer"
-            >
-              Resume
-            </button>
-          )}
+            {isPaused && (
+              <button
+                onClick={handleResume}
+                className="btn-primary"
+                aria-label="Resume timer"
+              >
+                Resume
+              </button>
+            )}
+
+            {(isRunning || isPaused) && (
+              <button
+                onClick={handleStop}
+                className="btn-danger"
+                aria-label="Stop timer"
+              >
+                Stop
+              </button>
+            )}
+          </div>
 
           {(isRunning || isPaused) && (
-            <button
-              onClick={handleStop}
-              className="btn-danger"
-              aria-label="Stop timer"
-            >
-              Stop
-            </button>
+            <div className="mt-6 p-3 bg-neutral-50 dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700">
+              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                Session started at{' '}
+                <span className="font-medium text-neutral-900 dark:text-neutral-100">
+                  {new Date(
+                    state.timerState.currentSession?.start || ''
+                  ).toLocaleTimeString()}
+                </span>
+              </p>
+            </div>
           )}
         </div>
+      </div>
 
-        {(isRunning || isPaused) && (
-          <div className="mt-6 p-3 bg-neutral-50 dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700">
-            <p className="text-sm text-neutral-600 dark:text-neutral-400">
-              Session started at{' '}
-              <span className="font-medium text-neutral-900 dark:text-neutral-100">
-                {new Date(
-                  state.timerState.currentSession?.start || ''
-                ).toLocaleTimeString()}
-              </span>
-            </p>
-          </div>
-        )}
+      {/* Temporary theme test */}
+      <div className="card max-w-2xl mx-auto">
+        <ThemeTest />
       </div>
     </div>
   );

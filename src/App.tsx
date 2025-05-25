@@ -1,32 +1,33 @@
-import { useState } from "react";
-import { AppProvider } from "./context/AppContext";
-import { ThemeProvider } from "./context/ThemeContext";
-import { Timer } from "./components/Timer";
-import { PomodoroTimer } from "./components/PomodoroTimer";
-import { Analytics } from "./components/Analytics";
-import { Settings } from "./components/Settings";
+import { useState } from 'react';
+import { AppProvider } from './context/AppContext';
+import { ThemeProvider } from './context/ThemeContext';
+import { Timer } from './components/Timer';
+import { PomodoroTimer } from './components/PomodoroTimer';
+import { Analytics } from './components/Analytics';
+import { Settings } from './components/Settings';
+import { ThemeDebug } from './components/ThemeDebug';
 
-type Tab = "timer" | "pomodoro" | "analytics" | "settings";
+type Tab = 'timer' | 'pomodoro' | 'analytics' | 'settings';
 
 function App() {
-  const [activeTab, setActiveTab] = useState<Tab>("timer");
+  const [activeTab, setActiveTab] = useState<Tab>('timer');
 
   const tabs = [
-    { id: "timer" as const, label: "Manual Timer", icon: "⏱️" },
-    { id: "pomodoro" as const, label: "Pomodoro", icon: "🍅" },
-    { id: "analytics" as const, label: "Analytics", icon: "📊" },
-    { id: "settings" as const, label: "Settings", icon: "⚙️" },
+    { id: 'timer' as const, label: 'Manual Timer', icon: '⏱️' },
+    { id: 'pomodoro' as const, label: 'Pomodoro', icon: '🍅' },
+    { id: 'analytics' as const, label: 'Analytics', icon: '📊' },
+    { id: 'settings' as const, label: 'Settings', icon: '⚙️' },
   ];
 
   const renderContent = () => {
     switch (activeTab) {
-      case "timer":
+      case 'timer':
         return <Timer />;
-      case "pomodoro":
+      case 'pomodoro':
         return <PomodoroTimer />;
-      case "analytics":
+      case 'analytics':
         return <Analytics />;
-      case "settings":
+      case 'settings':
         return <Settings />;
       default:
         return <Timer />;
@@ -58,7 +59,7 @@ function App() {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`nav-tab ${activeTab === tab.id ? "active" : ""}`}
+                    className={`nav-tab ${activeTab === tab.id ? 'active' : ''}`}
                     aria-label={`Switch to ${tab.label}`}
                   >
                     <span className="mr-2">{tab.icon}</span>
@@ -93,6 +94,9 @@ function App() {
               </div>
             </div>
           </footer>
+
+          {/* Debug component - temporary */}
+          <ThemeDebug />
         </div>
       </AppProvider>
     </ThemeProvider>
