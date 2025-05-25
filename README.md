@@ -141,7 +141,7 @@ To use design tokens in development:
 
 ### One-Click Deploy to Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/YOUR_USERNAME/focus-tracker)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/thomasbruketta/focus-tracker)
 
 ### Manual Deployment
 
